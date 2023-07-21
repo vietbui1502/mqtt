@@ -1,0 +1,7 @@
+version: '3'
+services:
+  # Go Service
+  ont-management-srv:
+    build: .
+    image: ont-management-srv:0.1
+    container_name: ont-management-srv

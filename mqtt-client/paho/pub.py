@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt 
 import time
 
-broker_hostname = "localhost"
+broker_hostname = "test.mosquitto.org"
 port = 1883 
 
 def on_connect(client, userdata, flags, return_code):
@@ -17,7 +17,7 @@ client.on_connect=on_connect
 client.connect(broker_hostname, port)
 client.loop_start()
 
-topic = "Test"
+topic = "VCS2023/InitialTopicksjdbjsdbjsb"
 msg_count = 0
 
 try:

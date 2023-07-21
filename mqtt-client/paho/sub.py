@@ -13,8 +13,8 @@ def on_message(client, userdata, message):
     print("Received message: " ,str(message.payload.decode("utf-8")))
 
 
-broker_hostname ="localhost"
-port = 1883 
+broker_hostname ="34.142.188.53"
+port = 8081 
 
 client = mqtt.Client("Client2")
 # client.username_pw_set(username="user_name", password="password") # uncomment if you use password auth
