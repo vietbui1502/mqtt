@@ -5,3 +5,5 @@ services:
     build: .
     image: ont-management-srv:0.1
     container_name: ont-management-srv
+    restart: always
+    network_mode: "host"

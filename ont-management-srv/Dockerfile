@@ -1,15 +1,14 @@
 
-FROM golang:1.17
+FROM golang:1.17 AS builder
 # Set destination for COPY
-WORKDIR /ont-management-srv
-
+WORKDIR /build_dir
 # Copy the source code
 COPY . .
-
 # Build
-RUN go build -o /ont-management-srv
+RUN go build
 
-#run
-COPY docker-entrypoint.sh ./docker-entrypoint.sh
-RUN chmod +x ./docker-entrypoint.sh
-CMD ["./docker-entrypoint.sh"]
+FROM golang:1.17
+WORKDIR /ont-management-srv/
+COPY --from=builder /build_dir/ont-management-srv ./ont-management-srv
+RUN chmod +x ./ont-management-srv
+CMD ["./ont-management-srv"]
