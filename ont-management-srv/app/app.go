@@ -16,7 +16,7 @@ func Start() {
 	data.Init()
 
 	// Configure MQTT client
-	mqttBroker := "mqtt://test.mosquitto.org:1883"
+	mqttBroker := "mqtt://127.0.0.1:1883"
 	mqttClientID := "mqtt-client"
 	mqttVcsIdentify := "VCS2023"
 	mqttInitialTopic := "VCS2023/InitialTopic"
@@ -38,9 +38,9 @@ func Start() {
 		// Handle the incoming message as per your requirements
 		fmt.Printf("Received message\nTopic: %s\nPayload: %s\n", msg.Topic(), msg.Payload())
 		if msg.Topic() != mqttInitialTopic {
-			SecuritySericesHandle(client, msg)
+			securitySericesHandle(client, msg)
 		} else {
-			FirstTimeConnection(client, msg)
+			firstTimeConnection(client, msg)
 		}
 	}
 

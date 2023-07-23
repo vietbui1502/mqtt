@@ -36,5 +36,5 @@ func Init() {
 		log.Printf("Error loading data file: %v", err)
 		return
 	}
-	fmt.Printf("Success loading sexual domain data\n")
+	log.Printf("Success loading sexual domain data\n")
 }

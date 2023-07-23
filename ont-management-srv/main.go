@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/vietbui1502/mqtt/ont-management-srv/app"
 )
 
 func main() {
-	fmt.Printf("App starting ...\n")
+	log.Printf("App starting ...\n")
 	app.Start()
 }

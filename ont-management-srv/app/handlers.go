@@ -43,7 +43,7 @@ type DomainResponse struct {
 }
 
 //Function handle client first time connect to the VCS Cloud on default topic
-func FirstTimeConnection(client mqtt.Client, msg mqtt.Message) {
+func firstTimeConnection(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("Topic: %s\nPayload: %s\n", msg.Topic(), msg.Payload())
 	// Extract the message payload as a string
 	payload := msg.Payload()
@@ -57,8 +57,6 @@ func FirstTimeConnection(client mqtt.Client, msg mqtt.Message) {
 
 	// For debugging
 	fmt.Printf("Received JSON data:\nEvent: %s\nData: %s\n", query.Event, query.Data)
-
-	fmt.Printf("zzzzzzzz\n")
 
 	if query.Event == "Hello_VCS" {
 		fmt.Printf("Security Agent first time connect to VCS Security Cloud\n")
@@ -94,11 +92,12 @@ func FirstTimeConnection(client mqtt.Client, msg mqtt.Message) {
 		fmt.Printf("ONT will handle this\n")
 		return
 	} else {
+		log.Printf("Unknow event on Initial Topic")
 		return
 	}
 }
 
-func SecuritySericesHandle(client mqtt.Client, msg mqtt.Message) {
+func securitySericesHandle(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("Received message for topic\nTopic: %s\nPayload: %s\n", msg.Topic(), msg.Payload())
 
 	payload := msg.Payload()
