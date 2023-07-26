@@ -17,7 +17,7 @@ func Init() {
 	}
 	fmt.Println(path)
 	// Open the file
-	file, err := os.Open("data/domain_blacklist")
+	file, err := os.Open("./data/domain_blacklist")
 	if err != nil {
 		log.Printf("Error open data file: %v", err)
 		return
