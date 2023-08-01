@@ -6,14 +6,17 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/vietbui1502/mqtt/ont-management-srv/data"
-
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/vietbui1502/mqtt/ont-management-srv/data"
+	"github.com/vietbui1502/mqtt/ont-management-srv/service"
 )
 
 func Start() {
 	// Initialize the domain data, to be update
 	data.Init()
+
+	// Register service handler
+	rh := RegisterHandlers{service: service.NewRegisterService()}
 
 	// Configure MQTT client
 	mqttBroker := "mqtt://127.0.0.1:1883"
@@ -40,7 +43,7 @@ func Start() {
 		if msg.Topic() != mqttInitialTopic {
 			securitySericesHandle(client, msg)
 		} else {
-			firstTimeConnection(client, msg)
+			rh.firstTimeConnection(client, msg)
 		}
 	}
 
