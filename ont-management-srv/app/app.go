@@ -1,22 +1,28 @@
 package app
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
 	"os/signal"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"github.com/vietbui1502/mqtt/ont-management-srv/data"
+	"github.com/vietbui1502/mqtt/ont-management-srv/domain"
+	"github.com/vietbui1502/mqtt/ont-management-srv/dto"
 	"github.com/vietbui1502/mqtt/ont-management-srv/service"
 )
 
 func Start() {
 	// Initialize the domain data, to be update
-	data.Init()
+	//data.Init()
+	domainRepositoryDemo := domain.NewDomainRepositoryDemo()
 
 	// Register service handler
 	rh := RegisterHandlers{service: service.NewRegisterService()}
+
+	// Secrity service handler, include domain query and further query
+	sh := SecurityHandlers{service: service.NewSecurityService(domainRepositoryDemo)}
 
 	// Configure MQTT client
 	mqttBroker := "mqtt://127.0.0.1:1883"
@@ -41,7 +47,33 @@ func Start() {
 		// Handle the incoming message as per your requirements
 		fmt.Printf("Received message\nTopic: %s\nPayload: %s\n", msg.Topic(), msg.Payload())
 		if msg.Topic() != mqttInitialTopic {
-			securitySericesHandle(client, msg)
+			//securitySericesHandle(client, msg)
+			fmt.Printf("Received message for topic\nTopic: %s\nPayload: %s\n", msg.Topic(), msg.Payload())
+
+			payload := msg.Payload()
+
+			// Unmarshal the JSON payload into the General Message struct
+			var request dto.GeneralMessage
+			if err := json.Unmarshal(payload, &request); err != nil {
+				log.Printf("Error unmarshaling JSON message Payload: %v", err)
+			}
+
+			// For debugging
+			log.Printf("Received JSON data:\nEvent: %s\nData: %s\n", request.Event, request.Data)
+
+			switch request.Event {
+			case "domain_query":
+				log.Printf("Domain query activity\n")
+				sh.domainQuery(client, msg)
+			case "domain_response":
+				log.Printf("Enter Domain response activity\n")
+			case "client_connected":
+				log.Printf("Client connected event\n")
+			case "client_disconnected":
+				log.Printf("Client disconnected event\n")
+			default:
+				log.Printf("Unknown event\n")
+			}
 		} else {
 			rh.firstTimeConnection(client, msg)
 		}

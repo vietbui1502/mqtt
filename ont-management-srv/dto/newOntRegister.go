@@ -19,5 +19,5 @@ type NewOntResponsePayload struct {
 
 type NewOntResponse struct {
 	Event string                `json:"event"`
-	Data  NewOntResponsePayload `json:data`
+	Data  NewOntResponsePayload `json:"data"`
 }
