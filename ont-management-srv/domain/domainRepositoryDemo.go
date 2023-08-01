@@ -5,21 +5,23 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/vietbui1502/mqtt/ont-management-srv/dto"
 )
 
 type DomainRepositoryDemo struct {
 	sexualDomain []string
 }
 
-func (d DomainRepositoryDemo) FindDomainCategory(domain string) (string, error) {
-	category := "unknown"
+func (d DomainRepositoryDemo) FindDomainCategory(domain string) (int, error) {
+	category := dto.Unknown
 
 	// For debugging ontInfo
 	log.Printf("Domain query:%s\n", domain)
 
 	for _, item := range d.sexualDomain {
 		if item == domain {
-			category = "sexual"
+			category = dto.Pornography
 		}
 	}
 

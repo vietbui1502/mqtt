@@ -1,5 +1,5 @@
 package domain
 
 type DomainRepository interface {
-	FindDomainCategory(domain string) (string, error)
+	FindDomainCategory(domain string) (int, error)
 }
