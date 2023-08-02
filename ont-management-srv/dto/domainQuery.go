@@ -35,7 +35,6 @@ type DomainRequestPayload struct {
 type DomainResponsePayload struct {
 	Domain   string `json:"domain"`
 	Category int    `json:"category"`
-	Verdict  string `json:"verdict"`
 }
 
 type DomainResponse struct {

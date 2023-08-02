@@ -28,7 +28,6 @@ func (s DefaultSecurityService) GetDomainCategory(req dto.DomainRequestPayload) 
 	responsePayload := dto.DomainResponsePayload{
 		Domain:   req.Domain,
 		Category: category,
-		Verdict:  "block",
 	}
 
 	response := dto.DomainResponse{
