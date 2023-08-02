@@ -29,15 +29,16 @@ const (
 )
 
 type DomainRequestPayload struct {
-	Domain string `json: "domain"`
+	Domain string `json:"domain"`
 }
 
 type DomainResponsePayload struct {
-	Domain   string `json: "domain"`
-	Category int    `json: "category"`
+	Domain   string `json:"domain"`
+	Category int    `json:"category"`
+	Verdict  string `json:"verdict"`
 }
 
 type DomainResponse struct {
-	Event string                `json: "event"`
-	Data  DomainResponsePayload `json: "data"`
+	Event string                `json:"event"`
+	Data  DomainResponsePayload `json:"data"`
 }

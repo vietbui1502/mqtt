@@ -12,7 +12,7 @@ WORKDIR /ont-management-srv/
 # Copy service
 COPY --from=builder /build_dir/ont-management-srv ./ont-management-srv
 # Copy data
-COPY ./data/domain_blacklist ./data/domain_blacklist
+COPY ./data_demo/domain_blacklist ./data_demo/domain_blacklist
 # Run services
 RUN chmod +x ./ont-management-srv
 CMD ["./ont-management-srv"]
